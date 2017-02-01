@@ -24,6 +24,7 @@ void UOpenDoor::BeginPlay()
 	Owner = GetOwner();
 	//set actor that opens
 	ActorThatOpenes = GetWorld()->GetFirstPlayerController()->GetPawn();
+	StartingRotation = Owner->GetActorRotation();
 }
 
 void UOpenDoor::OpenDoor()
