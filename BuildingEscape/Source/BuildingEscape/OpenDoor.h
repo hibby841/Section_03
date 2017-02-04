@@ -6,6 +6,7 @@
 #include "OpenDoor.generated.h"
 
 
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
 {
@@ -20,6 +21,7 @@ public:
 
 	void OpenDoor();
 	void CloseDoor();
+	float GetTotalMassOfActorsOnPlate();
 	
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
@@ -40,6 +42,5 @@ private:
 	float LastDoorOpenTime;
 	FRotator StartingRotation;//doors rotation at playtime
 
-	AActor *ActorThatOpenes;
 	AActor *Owner;//the owning door
 };

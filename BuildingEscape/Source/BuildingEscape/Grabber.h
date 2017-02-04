@@ -5,6 +5,8 @@
 #include "Components/ActorComponent.h"
 #include "Grabber.generated.h"
 
+#define OUT
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BUILDINGESCAPE_API UGrabber : public UActorComponent

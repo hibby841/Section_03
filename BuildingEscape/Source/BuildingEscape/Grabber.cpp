@@ -32,6 +32,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		///move object were holding
 		PhysicsComponent->SetTargetLocation(GetReachLineEnd());
 		FRotator ObjectRotation = ActorHit->GetActorRotation();
+		FString ObjectRotationString = ObjectRotation.ToString();
 		if (YawIsPressed)
 		{
 			PhysicsComponent->SetTargetRotation(ObjectRotation + FRotator(0, YawDirAndSpeed, 0));///form (pitch, yaw, roll)
@@ -39,6 +40,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		if (PitchIsPressed)
 		{
 			PhysicsComponent->SetTargetRotation(ObjectRotation + FRotator(PitchDirAndSpeed, 0, 0));
+			UE_LOG(LogTemp, Warning, TEXT("New held item rotation is %s"), *ActorHit->GetActorRotation().ToString())
 		}
 		if (RollIsPressed)
 		{
