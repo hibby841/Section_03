@@ -15,4 +15,5 @@ BuildingEscape/Content/GTFreeMaterials/
 ######################
 *.VC.db
 *.suo
-BuildingEscape/Content/GTFreeMaterials/
+*.VC.opendb
+*.sln

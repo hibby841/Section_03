@@ -22,13 +22,10 @@ public:
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
 private:
-	FVector PlayerViewPointLocation;
-	FRotator PlayerViewPointRotation;
-	FVector LineTraceDirection;
-	FVector LineTraceEnd;
 	bool YawIsPressed = false;
 	bool PitchIsPressed = false;
 	bool RollIsPressed = false;
+	//needed for getting the rotation the held object
 	AActor *ActorHit;
 
 	UPhysicsHandleComponent *PhysicsComponent = nullptr;
@@ -48,26 +45,28 @@ private:
 
 	//finds the (assumed) attatched physics handle component
 	void FindPhysicsHandleComponent();
-
-	//look for input component that appears at runtime
+	//look for (assumed) input component that appears at runtime
 	void SetupInputComponent();
-
-	//gets PlayerViewPointLocation And PlayerViewPointRotation plus calculates the LineTraceDirection And LineTraceEnd
-	void GetPVPLAndRToLTDAndE();
-
+	//gets current end of reach line
+	FVector GetReachLineEnd();
+	//gets current start of reach line
+	FVector GetReachLineStart();
 	//does a raycast out to LineTraceEnd and returns what it hits if its a physics body
-	FHitResult GetHitFromRayCast();
-
+	const FHitResult GetHitFromRayCast();
 	//calls GetHitFromRaycast and determines what to do based on the hit
 	void Grab();
-
-	//TODO will drop the object the player is holding on key release
+	//will drop the object the player is holding on key release
 	void Release();
-
+	//sets YawIsPressed to true
 	void YawPress();
+	//sets PitchIsPressed to true
 	void PitchPress();
+	//sets RollIsPressed to true
 	void RollPress();
+	//sets YawIsPressed to false
 	void YawRelease();
+	//sets PitchIsPressed to false
 	void PitchRelease();
+	//sets RollIsPressed to false
 	void RollRealease();
 };
