@@ -71,4 +71,5 @@ private:
 	void PitchRelease();
 	//sets RollIsPressed to false
 	void RollRealease();
+
 };
