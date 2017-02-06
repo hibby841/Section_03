@@ -28,7 +28,7 @@ private:
 	bool PitchIsPressed = false;
 	bool RollIsPressed = false;
 	//needed for getting the rotation the held object
-	AActor *ActorHit;
+	AActor *ActorHit = nullptr;
 
 	UPhysicsHandleComponent *PhysicsComponent = nullptr;
 	UInputComponent *MyInputComponent = nullptr;

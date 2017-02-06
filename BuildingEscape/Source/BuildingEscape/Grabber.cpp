@@ -27,24 +27,28 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	///if physics handle is attatched
-	if (PhysicsComponent->GrabbedComponent)
+	if (!(PhysicsComponent == nullptr))
 	{
-		///move object were holding
-		PhysicsComponent->SetTargetLocation(GetReachLineEnd());
-		FRotator ObjectRotation = ActorHit->GetActorRotation();
-		FString ObjectRotationString = ObjectRotation.ToString();
-		if (YawIsPressed)
+		if (PhysicsComponent->GrabbedComponent)
 		{
-			PhysicsComponent->SetTargetRotation(ObjectRotation + FRotator(0, YawDirAndSpeed, 0));///form (pitch, yaw, roll)
-		}
-		if (PitchIsPressed)
-		{
-			PhysicsComponent->SetTargetRotation(ObjectRotation + FRotator(PitchDirAndSpeed, 0, 0));
-			UE_LOG(LogTemp, Warning, TEXT("New held item rotation is %s"), *ActorHit->GetActorRotation().ToString())
-		}
-		if (RollIsPressed)
-		{
-			PhysicsComponent->SetTargetRotation(ObjectRotation + FRotator(0, 0, RollDirAndSpeed));
+			///move object were holding
+			PhysicsComponent->SetTargetLocation(GetReachLineEnd());
+			if (!ActorHit) { return; }
+			FRotator ObjectRotation = ActorHit->GetActorRotation();
+			FString ObjectRotationString = ObjectRotation.ToString();
+			if (YawIsPressed)
+			{
+				PhysicsComponent->SetTargetRotation(ObjectRotation + FRotator(0, YawDirAndSpeed, 0));///form (pitch, yaw, roll)
+			}
+			if (PitchIsPressed)
+			{
+				PhysicsComponent->SetTargetRotation(ObjectRotation + FRotator(PitchDirAndSpeed, 0, 0));
+				UE_LOG(LogTemp, Warning, TEXT("New held item rotation is %s"), *ActorHit->GetActorRotation().ToString())
+			}
+			if (RollIsPressed)
+			{
+				PhysicsComponent->SetTargetRotation(ObjectRotation + FRotator(0, 0, RollDirAndSpeed));
+			}
 		}
 	}
 }
@@ -79,7 +83,8 @@ void UGrabber::Grab()
 	ActorHit = HitResult.GetActor();
 
 	if (ActorHit)
-	{	///attatch physics handle
+	{if (!PhysicsComponent) { return; }
+		///attatch physics handle
 		PhysicsComponent->GrabComponentAtLocationWithRotation(
 			ComponentToGrab, 
 			NAME_None, //no bones needed
@@ -90,6 +95,7 @@ void UGrabber::Grab()
 
 void UGrabber::Release()
 {
+	if (!PhysicsComponent) { return; }
 	PhysicsComponent->ReleaseComponent();
 }
 
