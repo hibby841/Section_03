@@ -29,7 +29,7 @@ void UOpenDoor::BeginPlay()
 
 void UOpenDoor::OpenDoor()
 {
-	Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
+	OnOpenRequest.Broadcast();
 }
 
 void UOpenDoor::CloseDoor()
@@ -47,7 +47,7 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 	if (GetTotalMassOfActorsOnPlate() >= 30.f)//if the actor that opens is in the volume
 	{
 		OpenDoor();
-		LastDoorOpenTime = GetWorld()->GetTimeSeconds(); //BE35lol
+		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
 	}
 
 	if ((GetWorld()->GetTimeSeconds() - LastDoorOpenTime) >= 0.75)//check if its time to close the door
