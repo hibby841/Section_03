@@ -40,10 +40,9 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 			{
 				PhysicsComponent->SetTargetRotation(ObjectRotation + FRotator(0, YawDirAndSpeed, 0));///form (pitch, yaw, roll)
 			}
-			if (PitchIsPressed)
+			if (RotationReset)
 			{
-				PhysicsComponent->SetTargetRotation(ObjectRotation + FRotator(PitchDirAndSpeed, 0, 0));
-				UE_LOG(LogTemp, Warning, TEXT("New held item rotation is %s"), *ActorHit->GetActorRotation().ToString())
+				PhysicsComponent->SetTargetRotation(FRotator(0, 0, 0));
 			}
 			if (RollIsPressed)
 			{
@@ -66,10 +65,10 @@ void UGrabber::SetupInputComponent()
 	{
 		MyInputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
 		MyInputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
-		MyInputComponent->BindAction("RotatePitch", IE_Pressed, this, &UGrabber::PitchPress);
+		MyInputComponent->BindAction("ResetRotation", IE_Pressed, this, &UGrabber::RotationResetPress);
 		MyInputComponent->BindAction("RotateYaw", IE_Pressed, this, &UGrabber::YawPress);
 		MyInputComponent->BindAction("RotateRoll", IE_Pressed, this, &UGrabber::RollPress);
-		MyInputComponent->BindAction("RotatePitch", IE_Released, this, &UGrabber::PitchRelease);
+		MyInputComponent->BindAction("ResetRotation", IE_Released, this, &UGrabber::RotationResetRelease);
 		MyInputComponent->BindAction("RotateYaw", IE_Released, this, &UGrabber::YawRelease);
 		MyInputComponent->BindAction("RotateRoll", IE_Released, this, &UGrabber::RollRealease);
 	}
@@ -137,9 +136,9 @@ void UGrabber::YawPress()
 	YawIsPressed = true;
 }
 
-void UGrabber::PitchPress()
+void UGrabber::RotationResetPress()
 {
-	PitchIsPressed = true;
+	RotationReset = true;
 }
 
 void UGrabber::RollPress()
@@ -152,9 +151,9 @@ void UGrabber::YawRelease()
 	YawIsPressed = false;
 }
 
-void UGrabber::PitchRelease()
+void UGrabber::RotationResetRelease()
 {
-	PitchIsPressed = false;
+	RotationReset = false;
 }
 
 void UGrabber::RollRealease()

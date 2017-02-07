@@ -25,7 +25,7 @@ public:
 
 private:
 	bool YawIsPressed = false;
-	bool PitchIsPressed = false;
+	bool RotationReset = false;
 	bool RollIsPressed = false;
 	//needed for getting the rotation the held object
 	AActor *ActorHit = nullptr;
@@ -38,9 +38,6 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	int32 YawDirAndSpeed = 4;
-
-	UPROPERTY(EditAnywhere)
-	int32 PitchDirAndSpeed = 4;
 
 	UPROPERTY(EditAnywhere)
 	int32 RollDirAndSpeed = 4;
@@ -62,13 +59,13 @@ private:
 	//sets YawIsPressed to true
 	void YawPress();
 	//sets PitchIsPressed to true
-	void PitchPress();
+	void RotationResetPress();
 	//sets RollIsPressed to true
 	void RollPress();
 	//sets YawIsPressed to false
 	void YawRelease();
 	//sets PitchIsPressed to false
-	void PitchRelease();
+	void RotationResetRelease();
 	//sets RollIsPressed to false
 	void RollRealease();
 
